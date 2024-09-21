@@ -1,15 +1,10 @@
 <template>
   <v-app>
-    <TheHeader />
-
     <v-main>
-      <v-responsive max-width="1000px" class="mx-auto pa-4">
+      <v-responsive max-width="1000px" min-height="100vh" class="mx-auto pa-4">
         <slot />
       </v-responsive>
     </v-main>
-
-    <TheNavigation />
-    <TheProgress />
   </v-app>
 </template>
 
@@ -33,4 +28,7 @@ body
   [class^='text-']
     font-family fonts !important
   color #5D5D5D
+
+  .v-responsive
+    background-color #f3f4f6
 </style>
