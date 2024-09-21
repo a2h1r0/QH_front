@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'; // Nuxt.jsでルーティングを扱うためにimport
 import { pages } from '~/types/page';
 
 const auth = useAuth();
@@ -18,7 +19,35 @@ const submit = async () => {
   const validate = await loginForm.value.validate();
 
   if (validate.valid) {
-    loginFailed.value = !auth.login(email.value, password.value);
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+        }),
+      });
+
+      if (response.ok) {
+          const data = await response.json();
+          if (data.id == 1) {
+            console.log("ログイン成功");
+            loginFailed.value = false;
+            // TODO : 不要？
+            // auth.login(email.value, password.value); 
+          } else {
+            loginFailed.value = true;
+          }
+        } else {
+          loginFailed.value = true;
+        }
+    } catch (error) {
+      console.error('ログインリクエスト中にエラーが発生しました:', error);
+      loginFailed.value = true;
+    }
   }
 };
 </script>

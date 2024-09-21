@@ -1,21 +1,23 @@
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  // console.log(body);
+  try {
+    const body = await readBody(event);
+    // APIに対してログインリクエストを送信
+    const response = await $fetch('https://qh-server.onrender.com/api/users/login/', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: body.email,
+        password: body.password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response;
 
-  // const url = `https://deploy.com/login`;
-
-  // const response = await fetch(url, {
-  //   method: 'POST',
-  // });
-  // if (!response.ok) {
-  //   throw createError({
-  //     statusCode: 500,
-  //     message: 'データの取得に失敗しました．．．',
-  //   });
-  // }
-
-  // const html = await response.text();
-
-  // return html;
-  return 1;
+  } catch (error) {
+    throw createError({
+      statusCode: 500,
+      message: 'ログインに失敗しました．．．',
+    });
+  }
 });
