@@ -1,5 +1,11 @@
+<script lang="ts" setup>
+const route = useRoute();
+</script>
+
 <template>
   <v-app>
+    <TheHeader v-if="route.path !== '/register' && route.path !== '/login'" />
+
     <v-main>
       <v-responsive max-width="1000px" min-height="100vh" class="mx-auto pa-4">
         <slot />
