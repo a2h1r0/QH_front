@@ -15,28 +15,27 @@ class Schedule {
 
   async index(auth_id: number) {
     const { data, error, status } = await useFetch(`/api/schedules`);
-    
+
     if (status.value !== 'success') {
       throw showError({
         statusCode: error.value?.data.statusCode,
         message: error.value?.data.message,
       });
     }
-  
+
     const calendar = [];
     if (data.value) {
       for (const schedule of JSON.parse(data.value)) {
         if (schedule.user === auth_id) {
           calendar.push({
+            id: schedule.id,
             title: schedule.title,
-            start: new Date(schedule.event_date),
-            end: new Date(schedule.event_date),
-            allDay: true,
+            date: new Date(schedule.event_date),
           });
         }
       }
     }
-    console.log("calendar : ", calendar);
+    // console.log('calendar : ', calendar);
     this._data.value = calendar;
   }
 
@@ -56,12 +55,12 @@ class Schedule {
     }
     const dateValue = new Date(event_date);
 
-    console.log("dateValue : ", dateValue);
+    console.log('dateValue : ', dateValue);
     if (isNaN(dateValue.getTime())) {
-        throw showError({
-            statusCode: 400,
-            message: '無効なイベント日付です。',
-        });
+      throw showError({
+        statusCode: 400,
+        message: '無効なイベント日付です。',
+      });
     }
 
     const { data, error, status } = await useFetch(`/api/schedules`, {
@@ -79,7 +78,7 @@ class Schedule {
         statusCode: error.value?.data.statusCode,
         message: error.value?.data.message,
       });
-    } 
+    }
 
     return data.value !== null;
   }
