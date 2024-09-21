@@ -12,15 +12,13 @@ const rules = {
   password: [(value: any) => !!value || 'パスワードは必須項目です。'],
 };
 
+const loginFailed = ref(false);
+
 const submit = async () => {
   const validate = await loginForm.value.validate();
 
   if (validate.valid) {
-    const result = auth.login(email.value, password.value);
-
-    if (result !== 200) {
-      console.log('ログインでけてへんで');
-    }
+    loginFailed.value = !auth.login(email.value, password.value);
   }
 };
 </script>
@@ -53,6 +51,8 @@ const submit = async () => {
           >こちら</NuxtLink
         >
       </v-card-text>
+
+      <p class="text-red" v-if="loginFailed">ログインに失敗しました．．．</p>
 
       <v-card-actions>
         <v-spacer />

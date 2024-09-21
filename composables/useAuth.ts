@@ -13,13 +13,24 @@ class Auth {
     return readonly(this._user);
   }
 
-  login(email: string, password: string): Number {
-    const id = 1;
-    // これ取ってくる
+  async login(email: string, password: string): Promise<boolean> {
+    const { data, error, status } = await useFetch(`/api/login`, {
+      method: 'POST',
+      body: {
+        email,
+        password,
+      },
+    });
+    if (status.value !== 'success') {
+      throw showError({
+        statusCode: error.value?.data.statusCode,
+        message: error.value?.data.message,
+      });
+    }
 
-    this._user.value.id = id;
+    this._user.value.id = data.value;
 
-    return 200;
+    return data.value !== null;
   }
 
   logout() {
