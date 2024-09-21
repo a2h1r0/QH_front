@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-useHead({
-  titleTemplate: (title) => {
-    return title ? `${title} | QH_front` : 'QH_front';
-  },
-});
-</script>
-
 <template>
   <v-app>
     <TheHeader />

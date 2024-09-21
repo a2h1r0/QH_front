@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-// import { pages } from '~/types/page';
+import { pages } from '~/types/page';
 
-// useHead(pages.index.head);
+useHead(pages.index.head);
 </script>
 
 <template>
