@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { pages } from '~/types/page';
 
+const auth = useAuth();
+
 const email = ref('');
 const password = ref('');
 
@@ -14,7 +16,11 @@ const submit = async () => {
   const validate = await loginForm.value.validate();
 
   if (validate.valid) {
-    console.log('送信できそう');
+    const result = auth.login(email.value, password.value);
+
+    if (result !== 200) {
+      console.log('ログインでけてへんで');
+    }
   }
 };
 </script>
