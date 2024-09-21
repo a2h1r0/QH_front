@@ -1,23 +1,25 @@
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
+  try {
+    const body = await readBody(event);
+    const response = await $fetch('https://qh-server.onrender.com/api/schedules/', {
+      method: 'POST',
+      body: JSON.stringify({
+        user: body.user,
+        title: body.title,
+        description: body.description,
+        event_date: new Date(body.event_date).toISOString(),
+        area: body.area,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response;
 
-  const url = `https://qh-server.onrender.com/api/schedules/`;
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body,
-  });
-  if (!response.ok) {
+  } catch (error) {
     throw createError({
       statusCode: 500,
-      message: 'データの取得に失敗しました．．．',
+      message: 'スケジュールの作成に失敗しました．．．',
     });
   }
-
-  const schedules = await response.text();
-
-  return schedules;
 });

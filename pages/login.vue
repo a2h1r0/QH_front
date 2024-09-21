@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'; // Nuxt.jsでルーティングを扱うためにimport
+import { useRouter, useRoute } from 'vue-router'; 
 import { pages } from '~/types/page';
 
 const auth = useAuth();

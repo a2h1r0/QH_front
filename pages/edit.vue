@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { pages } from '~/types/page';
+import { useRouter } from 'vue-router'; 
 
 const auth = useAuth();
 const schedule = useSchedule();
+const router = useRouter();
 
 const title = ref('');
 const description = ref('');
@@ -23,13 +25,26 @@ const submit = async () => {
   const validate = await scheduleForm.value.validate();
 
   if (validate.valid) {
-    scheduleFailed.value = !schedule.create(
-      auth.user.value.id as number,
+    const dateValue = new Date(event_date.value);
+    
+    if (isNaN(dateValue.getTime())) {
+      scheduleFailed.value = true;
+      console.error("Invalid event date");
+      return;
+    }
+
+    const success = await schedule.create(
       title.value,
       description.value,
-      event_date.value,
+      dateValue,
       area.value
     );
+
+    if (success) {
+      router.push('/home');
+    } else {
+      scheduleFailed.value = true;
+    }
   }
 };
 </script>
@@ -57,14 +72,14 @@ const submit = async () => {
             placeholder="オイスターバーで飲む"
           />
 
-          <!-- <v-text-field
-            label="メールアドレス"
-            name="email"
-            type="email"
-            v-model="email"
-            :rules="rules.email"
-            placeholder="kentou@gmail.com"
-          /> -->
+          <v-text-field 
+            label="イベント日付"
+            name="event_date"
+            type="datetime-local"
+            v-model="event_date"
+            :min="new Date().toISOString().slice(0, 10)"
+            format="YYYY-MM-DD"
+          />
 
           <v-text-field label="場所" name="area" type="text" v-model="area" />
         </v-form>

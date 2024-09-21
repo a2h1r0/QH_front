@@ -41,19 +41,36 @@ class Schedule {
   }
 
   async create(
-    user_id: number,
     title: string,
     description: string,
-    event_date: Date,
+    event_date: string,
     area: string
   ): Promise<boolean> {
+    const user_id = sessionStorage.getItem('user_id');
+
+    if (!user_id) {
+      throw showError({
+        statusCode: 401,
+        message: 'ユーザーIDが見つかりません。ログインしてください。',
+      });
+    }
+    const dateValue = new Date(event_date);
+
+    console.log("dateValue : ", dateValue);
+    if (isNaN(dateValue.getTime())) {
+        throw showError({
+            statusCode: 400,
+            message: '無効なイベント日付です。',
+        });
+    }
+
     const { data, error, status } = await useFetch(`/api/schedules`, {
       method: 'POST',
       body: {
-        user: user_id,
+        user: parseInt(user_id),
         title,
         description,
-        event_date: event_date.toISOString(),
+        event_date: dateValue.toISOString(),
         area,
       },
     });
@@ -62,7 +79,7 @@ class Schedule {
         statusCode: error.value?.data.statusCode,
         message: error.value?.data.message,
       });
-    }
+    } 
 
     return data.value !== null;
   }
