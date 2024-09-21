@@ -16,6 +16,7 @@ export interface Pages {
   index: Page;
   register: Page;
   login: Page;
+  home: Page;
 }
 
 export const pages: Pages = {
@@ -47,6 +48,18 @@ export const pages: Pages = {
     path: '/login',
     head: {
       title: 'ログイン | QH_frontやねん',
+      meta: [
+        {
+          name: 'description',
+          content: 'QH_frontやねん',
+        },
+      ],
+    },
+  },
+  home: {
+    path: '/home',
+    head: {
+      title: 'ホーム | QH_frontやねん',
       meta: [
         {
           name: 'description',

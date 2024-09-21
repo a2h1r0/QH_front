@@ -5,19 +5,24 @@ const route = useRoute();
 const router = useRouter();
 const auth = useAuth();
 
-const isNotLoginURL = () =>
-  route.path !== '/register' && route.path !== '/login';
+const isLoginURL = () => route.path === '/register' || route.path === '/login';
 
 watchEffect(() => {
-  if (auth.user.value.id === null && isNotLoginURL()) {
+  if (auth.user.value.id === null && !isLoginURL()) {
     router.push({ path: pages.login.path });
+  } else if (auth.user.value.id !== null && isLoginURL()) {
+    router.push({ path: pages.home.path });
   }
 });
+
+if (route.path === '/') {
+  router.push({ path: pages.home.path });
+}
 </script>
 
 <template>
   <v-app>
-    <TheHeader v-if="isNotLoginURL()" />
+    <TheHeader v-if="!isLoginURL()" />
 
     <v-main>
       <v-responsive max-width="1000px" min-height="100vh" class="mx-auto pa-4">

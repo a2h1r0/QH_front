@@ -6,6 +6,4 @@ useHead(pages.index.head);
 const auth = useAuth();
 </script>
 
-<template>
-  <div>indexページは今回は表示しないよー</div>
-</template>
+<template>ログインしてるやつ：{{ auth.user }}</template>
