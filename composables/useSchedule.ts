@@ -15,25 +15,28 @@ class Schedule {
 
   async index(auth_id: number) {
     const { data, error, status } = await useFetch(`/api/schedules`);
+    
     if (status.value !== 'success') {
       throw showError({
         statusCode: error.value?.data.statusCode,
         message: error.value?.data.message,
       });
     }
-
+  
     const calendar = [];
-    for (const schedule of JSON.parse(data.value)) {
-      if (schedule.user !== auth_id) {
-        calendar.push({
-          title: schedule.title,
-          start: new Date(),
-          end: new Date(),
-          allDay: true,
-        });
+    if (data.value) {
+      for (const schedule of JSON.parse(data.value)) {
+        if (schedule.user === auth_id) {
+          calendar.push({
+            title: schedule.title,
+            start: new Date(schedule.event_date),
+            end: new Date(schedule.event_date),
+            allDay: true,
+          });
+        }
       }
     }
-
+    console.log("calendar : ", calendar);
     this._data.value = calendar;
   }
 
@@ -61,6 +64,6 @@ class Schedule {
       });
     }
 
-    return data.value;
+    return data.value !== null;
   }
 }
