@@ -18,7 +18,7 @@ class Auth {
     email: string,
     password: string,
     username: string,
-    display_name: string
+    displayname: string
   ): Promise<boolean> {
     const { data, error, status } = await useFetch(`/api/register`, {
       method: 'POST',
@@ -26,7 +26,7 @@ class Auth {
         email,
         password,
         username,
-        display_name,
+        displayname,
       },
     });
   
