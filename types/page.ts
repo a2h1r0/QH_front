@@ -17,6 +17,7 @@ export interface Pages {
   register: Page;
   login: Page;
   home: Page;
+  edit: Page;
 }
 
 export const pages: Pages = {
@@ -60,6 +61,18 @@ export const pages: Pages = {
     path: '/home',
     head: {
       title: 'ホーム | QH_frontやねん',
+      meta: [
+        {
+          name: 'description',
+          content: 'QH_frontやねん',
+        },
+      ],
+    },
+  },
+  edit: {
+    path: '/edit',
+    head: {
+      title: '予定投稿 | QH_frontやねん',
       meta: [
         {
           name: 'description',
