@@ -2,8 +2,11 @@
 import { pages } from '~/types/page';
 
 useHead(pages.index.head);
+const schedule = useSchedule();
 
-const auth = useAuth();
+schedule.index();
 </script>
 
-<template>ログインしてるやつ：{{ auth.user }}</template>
+<template>
+  <div v-for="schedule in schedule.data">{{ schedule }}</div>
+</template>
