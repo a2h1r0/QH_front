@@ -1,10 +1,23 @@
 <script lang="ts" setup>
+import { pages } from '~/types/page';
+
 const route = useRoute();
+const router = useRouter();
+const auth = useAuth();
+
+const isNotLoginURL = () =>
+  route.path !== '/register' && route.path !== '/login';
+
+watchEffect(() => {
+  if (auth.user.value.id === null && isNotLoginURL()) {
+    router.push({ path: pages.login.path });
+  }
+});
 </script>
 
 <template>
   <v-app>
-    <TheHeader v-if="route.path !== '/register' && route.path !== '/login'" />
+    <TheHeader v-if="isNotLoginURL()" />
 
     <v-main>
       <v-responsive max-width="1000px" min-height="100vh" class="mx-auto pa-4">
