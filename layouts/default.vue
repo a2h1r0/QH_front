@@ -35,6 +35,6 @@ body
     font-family fonts !important
   color #5D5D5D
 
-  .v-responsive
+  .v-main
     background-color #f3f4f6
 </style>
