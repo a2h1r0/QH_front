@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { pages } from '~/types/page';
 
+const auth = useAuth();
+
 const username = ref('');
 const display_name = ref('');
 const email = ref('');
@@ -19,11 +21,18 @@ const rules = {
   ],
 };
 
+const registerFailed = ref(false);
+
 const submit = async () => {
   const validate = await registerForm.value.validate();
 
   if (validate.valid) {
-    console.log('送信できそう');
+    registerFailed.value = !auth.register(
+      email.value,
+      password.value,
+      username.value,
+      display_name.value
+    );
   }
 };
 </script>
@@ -83,6 +92,8 @@ const submit = async () => {
           >こちら</NuxtLink
         >
       </v-card-text>
+
+      <p class="text-red" v-if="registerFailed">登録に失敗しました．．．</p>
 
       <v-card-actions>
         <v-spacer />

@@ -13,6 +13,33 @@ class Auth {
     return readonly(this._user);
   }
 
+  async register(
+    email: string,
+    password: string,
+    username: string,
+    display_name: string
+  ): Promise<boolean> {
+    const { data, error, status } = await useFetch(`/api/register`, {
+      method: 'POST',
+      body: {
+        email,
+        password,
+        username,
+        display_name,
+      },
+    });
+    if (status.value !== 'success') {
+      throw showError({
+        statusCode: error.value?.data.statusCode,
+        message: error.value?.data.message,
+      });
+    }
+
+    this._user.value.id = data.value;
+
+    return data.value !== null;
+  }
+
   async login(email: string, password: string): Promise<boolean> {
     const { data, error, status } = await useFetch(`/api/login`, {
       method: 'POST',
