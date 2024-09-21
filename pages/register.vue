@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { pages } from '~/types/page';
 
+const router = useRouter();
 const auth = useAuth();
 
 const username = ref('');
@@ -27,12 +28,24 @@ const submit = async () => {
   const validate = await registerForm.value.validate();
 
   if (validate.valid) {
-    registerFailed.value = !auth.register(
-      email.value,
-      password.value,
-      username.value,
-      display_name.value
-    );
+    try {
+      const success = await auth.register(
+        email.value,
+        password.value,
+        username.value,
+        display_name.value
+      );
+      if (success) {
+        console.log('ログイン成功');
+        registerFailed.value = false;
+        router.push('/home');
+      } else {
+        registerFailed.value = true;
+      }
+    } catch (error) {
+      console.error('ログインリクエスト中にエラーが発生しました:', error);
+      registerFailed.value = true;
+    }
   }
 };
 </script>
