@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'; // Nuxt.jsでルーティングを扱うためにimport
+import { useRouter, useRoute } from 'vue-router'; // Nuxt.jsでルーティングを扱うためにimport
 import { pages } from '~/types/page';
 
 const auth = useAuth();
+const router = useRouter();
+const route = useRoute();
 
 const email = ref('');
 const password = ref('');
@@ -20,36 +22,27 @@ const submit = async () => {
 
   if (validate.valid) {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-      });
-
-      if (response.ok) {
-          const data = await response.json();
-          if (data.id == 1) {
-            console.log("ログイン成功");
-            loginFailed.value = false;
-            // TODO : 不要？
-            // auth.login(email.value, password.value); 
-          } else {
-            loginFailed.value = true;
-          }
-        } else {
-          loginFailed.value = true;
-        }
+      const success = await auth.login(email.value, password.value);
+      if (success) {
+        console.log("ログイン成功");
+        loginFailed.value = false;
+        router.push('/home');
+      } else {
+        loginFailed.value = true;
+      }
     } catch (error) {
       console.error('ログインリクエスト中にエラーが発生しました:', error);
       loginFailed.value = true;
     }
   }
 };
+
+onMounted(() => {
+  const userId = sessionStorage.getItem('user_id');
+  if (userId && route.name !== 'login') {
+    router.push('/home');
+  }
+});
 </script>
 
 <template>
