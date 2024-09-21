@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { pages } from '~/types/page';
+
 const email = ref('');
 const password = ref('');
 
@@ -40,6 +42,10 @@ const submit = async () => {
             :rules="rules.password"
           />
         </v-form>
+
+        アカウントをお持ちでない方は<NuxtLink :to="pages.register.path"
+          >こちら</NuxtLink
+        >
       </v-card-text>
 
       <v-card-actions>

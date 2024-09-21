@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { pages } from '~/types/page';
+
 const username = ref('');
 const display_name = ref('');
 const email = ref('');
@@ -76,11 +78,15 @@ const submit = async () => {
             :rules="rules.password_confirmation"
           />
         </v-form>
+
+        すでにアカウントをお持ちの方は<NuxtLink :to="pages.login.path"
+          >こちら</NuxtLink
+        >
       </v-card-text>
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="submit" color="primary">送信</v-btn>
+        <v-btn @click="submit" color="primary">登録</v-btn>
       </v-card-actions>
     </v-card>
   </div>
