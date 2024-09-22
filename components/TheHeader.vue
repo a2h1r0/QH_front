@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { pages } from '~/types/page';
-import { useAuth } from '~/composables/useAuth'; 
+import { useAuth } from '~/composables/useAuth';
 
 const auth = useAuth();
 const router = useRouter();
@@ -13,7 +13,9 @@ const logout = () => {
 
 <template>
   <v-app-bar>
-    <v-app-bar-title>QH_front</v-app-bar-title>
+    <v-app-bar-title>
+      <img src="@/assets/images/logo.jpg" height="50" />
+    </v-app-bar-title>
 
     <v-spacer></v-spacer>
 
