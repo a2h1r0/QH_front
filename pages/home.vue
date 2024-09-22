@@ -37,11 +37,13 @@ onMounted(async () => {
 watchEffect(() => {
   if (isShowAuthCalendar.value) {
     calendarOptions.value.events = schedule.data.value.filter(
-      (event) => event.user_id === auth.user.value.id
+      (event) =>
+        event.user_id === auth.user.value.id || event.apply_user_id === null
     );
   } else {
     calendarOptions.value.events = schedule.data.value.filter(
-      (event) => event.user_id !== auth.user.value.id
+      (event) =>
+        event.user_id !== auth.user.value.id && event.apply_user_id === null
     );
   }
 });

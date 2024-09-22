@@ -23,14 +23,25 @@ class Schedule {
     //   });
     // }
 
+    const user_id = sessionStorage.getItem('user_id');
+
     const calendar = [];
     if (response) {
       for (const schedule of JSON.parse(response)) {
+        let color = '#4169e1';
+        if (schedule.user === user_id) {
+          color = '#008000';
+        } else if (schedule.apply_user === user_id) {
+          color = '#ff0000';
+        }
+
         calendar.push({
           id: schedule.id,
           user_id: schedule.user,
           title: schedule.title,
           date: new Date(schedule.event_date),
+          apply_user_id: schedule.apply_user,
+          backgroundColor: color,
         });
       }
     }
