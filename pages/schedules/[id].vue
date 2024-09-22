@@ -39,17 +39,20 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="home-container d-flex align-center justify-center fill-height" v-if="event">
-    <v-card min-width="400px" class="pt-4">
-      <div v-if="event.user == auth_id">
+  <div
+    class="home-container d-flex align-center justify-center fill-height"
+    v-if="event"
+  >
+    <v-card class="pt-4">
+      <div class="px-4" v-if="event.user == auth_id">
         自分の投稿したスケジュールです
         <div v-if="event.apply_user !== null">
           応募者：{{ event.apply_user_username }}
         </div>
       </div>
 
-      <div v-if="event.apply_user == auth_id">
-        自分から誘ったスケジュールです <br>
+      <div class="px-4" v-if="event.apply_user == auth_id">
+        自分から誘ったスケジュールです <br />
         <div class="tag">誘い先：{{ event.user_username }}</div>
       </div>
 
@@ -75,10 +78,12 @@ onMounted(async () => {
     </v-card>
 
     <v-snackbar v-model="snackbar">
-      誘ってみました！確認メールから誰との予定か確認してください！
+      誘ってみました！データが更新されるので，誰との予定か確認してください！
     </v-snackbar>
 
-    <v-btn @click="goHome" color="secondary" class="mt-4 go-home-btn">Homeへ戻る</v-btn>
+    <v-btn @click="goHome" color="secondary" class="mt-4 go-home-btn"
+      >Homeへ戻る</v-btn
+    >
   </div>
 </template>
 
@@ -89,7 +94,7 @@ onMounted(async () => {
   flex-direction: column; /* カードとボタンを縦に並べる */
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   width: 100%;
   background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   padding: 16px;
