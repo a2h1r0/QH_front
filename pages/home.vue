@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDisplay } from 'vuetify';
 import { pages } from '~/types/page';
 import { useRouter } from 'vue-router';
 import FullCalendar from '@fullcalendar/vue3';
@@ -10,6 +11,7 @@ const auth = useAuth();
 const router = useRouter();
 const route = useRoute();
 const schedule = useSchedule();
+const { mobile } = useDisplay();
 
 const isShowAuthCalendar = ref(route.query.completed);
 const snackbar = ref(route.query.completed === 'true');
@@ -20,7 +22,7 @@ const handleEventClick = (value) => {
 
 const calendarOptions = ref({
   plugins: [dayGridPlugin, interactionPlugin],
-  initialView: 'dayGridMonth',
+  initialView: mobile.value ? 'dayGridDay' : 'dayGridMonth',
   eventClick: handleEventClick,
 });
 
@@ -56,7 +58,9 @@ watchEffect(() => {
       <v-btn
         @click="isShowAuthCalendar = !isShowAuthCalendar"
         :text="
-          isShowAuthCalendar ? '他人のカレンダーを見る' : '自分のカレンダーを見る'
+          isShowAuthCalendar
+            ? '他人のカレンダーを見る'
+            : '自分のカレンダーを見る'
         "
       ></v-btn>
 
