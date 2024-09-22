@@ -38,7 +38,8 @@ watchEffect(() => {
   if (isShowAuthCalendar.value) {
     calendarOptions.value.events = schedule.data.value.filter(
       (event) =>
-        event.user_id === auth.user.value.id || event.apply_user_id === null
+        event.user_id === auth.user.value.id ||
+        event.apply_user_id === auth.user.value.id
     );
   } else {
     calendarOptions.value.events = schedule.data.value.filter(

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     {
       method: 'PUT',
       body: JSON.stringify({
-        user: body.user,
+        apply_user: body.apply_user,
       }),
       headers: {
         'Content-Type': 'application/json',
