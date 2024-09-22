@@ -29,9 +29,9 @@ class Schedule {
     if (response) {
       for (const schedule of JSON.parse(response)) {
         let color = '#4169e1';
-        if (schedule.user === user_id) {
+        if (schedule.user == user_id) {
           color = '#008000';
-        } else if (schedule.apply_user === user_id) {
+        } else if (schedule.apply_user == user_id) {
           color = '#ff0000';
         }
 
@@ -51,6 +51,7 @@ class Schedule {
 
   async show(id: number): Promise<ScheduleType> {
     const response = await $fetch(`/api/schedules/${id}`);
+    console.log(response);
 
     return JSON.parse(response);
   }
@@ -101,7 +102,7 @@ class Schedule {
   async request(id: number, user_id: number): Promise<boolean> {
     const response = await $fetch(`/api/schedules/${id}`, {
       method: 'PUT',
-      body: { user: user_id },
+      body: { apply_user: user_id },
     });
     // if (status.value !== 'success') {
     //   throw showError({
