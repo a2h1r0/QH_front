@@ -51,16 +51,67 @@ watchEffect(() => {
 </script>
 
 <template>
-  <v-btn
-    @click="isShowAuthCalendar = !isShowAuthCalendar"
-    :text="
-      isShowAuthCalendar ? '他人のカレンダーを見る' : '自分のカレンダーを見る'
-    "
-  ></v-btn>
+  <div class="background-container">
+    <div class="home-container">
+      <v-btn
+        @click="isShowAuthCalendar = !isShowAuthCalendar"
+        :text="
+          isShowAuthCalendar ? '他人のカレンダーを見る' : '自分のカレンダーを見る'
+        "
+      ></v-btn>
 
-  <v-sheet>
-    <FullCalendar :options="calendarOptions" />
-
-    <v-snackbar v-model="snackbar">予定の公開が完了しました！</v-snackbar>
-  </v-sheet>
+      <v-sheet class="calendar-container">
+        <FullCalendar :options="calendarOptions" class="calendar" />
+        <v-snackbar v-model="snackbar">予定の公開が完了しました！</v-snackbar>
+      </v-sheet>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+/* 背景を全体に広げる */
+.background-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  padding: 16px; /* 必要に応じてパディングを追加 */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* 画面幅にフィット */
+  padding: 16px;
+}
+
+/* カレンダーコンテナの幅と高さを調整 */
+.calendar-container {
+  width: 100%;
+  height: auto;
+  margin: 20px auto;
+}
+
+/* カレンダーの調整 */
+.calendar {
+  width: 100%;
+  height: auto; /* カレンダーの高さを自動調整 */
+}
+
+/* スマホ対応のメディアクエリ */
+@media (max-width: 600px) {
+  .calendar-container {
+    max-width: 100%;
+    margin: 10px auto;
+  }
+
+  .calendar {
+    max-width: 100%;
+  }
+}
+</style>
