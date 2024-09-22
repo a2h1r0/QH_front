@@ -43,7 +43,7 @@ onMounted(async () => {
     class="home-container d-flex align-center justify-center fill-height"
     v-if="event"
   >
-    <v-card class="pt-4">
+    <v-card class="pt-4" min-width="350px">
       <div class="px-4" v-if="event.user == auth_id">
         自分の投稿したスケジュールです
         <div v-if="event.apply_user !== null">
