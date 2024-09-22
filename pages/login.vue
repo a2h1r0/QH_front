@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'; 
+import { useRouter, useRoute } from 'vue-router';
 import { pages } from '~/types/page';
 
 const auth = useAuth();
@@ -24,14 +24,14 @@ const submit = async () => {
     try {
       const success = await auth.login(email.value, password.value);
       if (success) {
-        console.log("ログイン成功");
+        // console.log("ログイン成功");
         loginFailed.value = false;
         router.push('/home');
       } else {
         loginFailed.value = true;
       }
     } catch (error) {
-      console.error('ログインリクエスト中にエラーが発生しました:', error);
+      // console.error('ログインリクエスト中にエラーが発生しました:', error);
       loginFailed.value = true;
     }
   }

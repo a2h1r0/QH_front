@@ -36,14 +36,14 @@ const submit = async () => {
         display_name.value
       );
       if (success) {
-        console.log('ログイン成功');
+        // console.log('ログイン成功');
         registerFailed.value = false;
         router.push('/home');
       } else {
         registerFailed.value = true;
       }
     } catch (error) {
-      console.error('ログインリクエスト中にエラーが発生しました:', error);
+      // console.error('ログインリクエスト中にエラーが発生しました:', error);
       registerFailed.value = true;
     }
   }

@@ -20,7 +20,7 @@ class Auth {
     username: string,
     displayname: string
   ): Promise<boolean> {
-    const { data, error, status } = await useFetch(`/api/register`, {
+    const response = await $fetch(`/api/register`, {
       method: 'POST',
       body: {
         email,
@@ -30,20 +30,16 @@ class Auth {
       },
     });
 
-    if (status.value !== 'success') {
-      throw showError({
-        statusCode: error.value?.data.statusCode,
-        message: error.value?.data.message,
-      });
-    }
+    // if (status.value !== 'success') {
+    //   throw showError({
+    //     statusCode: error.value?.data.statusCode,
+    //     message: error.value?.data.message,
+    //   });
+    // }
 
     // data.value が数値かどうか確認
-    if (
-      data.value != null &&
-      typeof data.value === 'object' &&
-      'id' in data.value
-    ) {
-      const valueWithId = data.value as { id: number };
+    if (response != null && typeof response === 'object' && 'id' in response) {
+      const valueWithId = response as { id: number };
       // console.log(' typeof data.value.idあ : ', typeof valueWithId.id);
       sessionStorage.setItem('user_id', String(valueWithId.id));
       // console.log(
@@ -57,36 +53,29 @@ class Auth {
       // ); // ログ追加
     }
 
-    return data.value !== null;
+    return response !== null;
   }
 
   // ログイン処理
   async login(email: string, password: string): Promise<boolean> {
-    const { data, error, status } = await useFetch<number | null>(
-      `/api/login`,
-      {
-        method: 'POST',
-        body: {
-          email,
-          password,
-        },
-      }
-    );
+    const response = await $fetch<number | null>(`/api/login`, {
+      method: 'POST',
+      body: {
+        email,
+        password,
+      },
+    });
 
-    if (status.value !== 'success') {
-      throw showError({
-        statusCode: error.value?.data.statusCode,
-        message: error.value?.data.message,
-      });
-    }
+    // if (status.value !== 'success') {
+    //   throw showError({
+    //     statusCode: error.value?.data.statusCode,
+    //     message: error.value?.data.message,
+    //   });
+    // }
 
     // data.value が数値かどうか確認
-    if (
-      data.value != null &&
-      typeof data.value === 'object' &&
-      'id' in data.value
-    ) {
-      const valueWithId = data.value as { id: number };
+    if (response != null && typeof response === 'object' && 'id' in response) {
+      const valueWithId = response as { id: number };
       // console.log(' typeof data.value.idあ : ', typeof valueWithId.id);
       sessionStorage.setItem('user_id', String(valueWithId.id));
       // console.log(
@@ -100,7 +89,7 @@ class Auth {
       // ); // ログ追加
     }
 
-    return data.value !== null;
+    return response !== null;
   }
 
   // ログアウト処理

@@ -12,7 +12,7 @@ const route = useRoute();
 const schedule = useSchedule();
 
 const isShowAuthCalendar = ref(route.query.completed);
-const message = ref(route.query.completed);
+const message = ref(route.query.completed === 'true');
 
 const handleEventClick = (arg) => {
   console.log(arg.event.id);

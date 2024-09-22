@@ -14,18 +14,18 @@ class Schedule {
   }
 
   async index() {
-    const { data, error, status } = await useFetch(`/api/schedules`);
+    const response = await $fetch(`/api/schedules`);
 
-    if (status.value !== 'success') {
-      throw showError({
-        statusCode: error.value?.data.statusCode,
-        message: error.value?.data.message,
-      });
-    }
+    // if (status.value !== 'success') {
+    //   throw showError({
+    //     statusCode: error.value?.data.statusCode,
+    //     message: error.value?.data.message,
+    //   });
+    // }
 
     const calendar = [];
-    if (data.value) {
-      for (const schedule of JSON.parse(data.value)) {
+    if (response) {
+      for (const schedule of JSON.parse(response)) {
         calendar.push({
           id: schedule.id,
           user_id: schedule.user,
@@ -54,7 +54,6 @@ class Schedule {
     }
     const dateValue = new Date(event_date);
 
-    console.log('dateValue : ', dateValue);
     if (isNaN(dateValue.getTime())) {
       throw showError({
         statusCode: 400,
@@ -62,7 +61,7 @@ class Schedule {
       });
     }
 
-    const { data, error, status } = await useFetch(`/api/schedules`, {
+    const response = await $fetch(`/api/schedules`, {
       method: 'POST',
       body: {
         user: parseInt(user_id),
@@ -72,13 +71,13 @@ class Schedule {
         area,
       },
     });
-    if (status.value !== 'success') {
-      throw showError({
-        statusCode: error.value?.data.statusCode,
-        message: error.value?.data.message,
-      });
-    }
+    // if (status.value !== 'success') {
+    //   throw showError({
+    //     statusCode: error.value?.data.statusCode,
+    //     message: error.value?.data.message,
+    //   });
+    // }
 
-    return data.value !== null;
+    return response !== null;
   }
 }
