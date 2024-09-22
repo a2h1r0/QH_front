@@ -19,6 +19,9 @@ const submit = async () => {
   );
   if (success) {
     snackbar.value = true;
+    event.value = await useSchedule().show(
+      route.params.id as unknown as number
+    );
   }
 };
 
