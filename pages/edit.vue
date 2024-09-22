@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pages } from '~/types/page';
-import { useRouter } from 'vue-router'; 
+import { useRouter } from 'vue-router';
 
 const auth = useAuth();
 const schedule = useSchedule();
@@ -26,10 +26,9 @@ const submit = async () => {
 
   if (validate.valid) {
     const dateValue = new Date(event_date.value);
-    
+
     if (isNaN(dateValue.getTime())) {
       scheduleFailed.value = true;
-      console.error("Invalid event date");
       return;
     }
 
@@ -41,7 +40,7 @@ const submit = async () => {
     );
 
     if (success) {
-      router.push('/home');
+      router.push({ path: '/home', query: { completed: 'true' } });
     } else {
       scheduleFailed.value = true;
     }
@@ -72,7 +71,7 @@ const submit = async () => {
             placeholder="オイスターバーで飲む"
           />
 
-          <v-text-field 
+          <v-text-field
             label="イベント日付"
             name="event_date"
             type="datetime-local"

@@ -8,9 +8,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 useHead(pages.index.head);
 const auth = useAuth();
 const router = useRouter();
+const route = useRoute();
 const schedule = useSchedule();
 
-const isShowAuthCalendar = ref(false);
+const isShowAuthCalendar = ref(route.query.completed);
+const message = ref(route.query.completed);
 
 const handleEventClick = (arg) => {
   console.log(arg.event.id);
@@ -27,10 +29,7 @@ const calendarOptions = ref({
 onMounted(async () => {
   await auth.restoreSession(); // 非同期処理を待つ
 
-  console.log('セッション復元後の auth.user.value.id : ', auth.user.value.id);
-
   if (!auth.user.value.id) {
-    console.log('ないのでログイン ');
     router.push({ name: 'login' });
   } else {
     await schedule.index(auth.user.value.id); // ユーザーIDに基づいてスケジュールを取得
@@ -60,5 +59,7 @@ watchEffect(() => {
 
   <v-sheet>
     <FullCalendar :options="calendarOptions" />
+
+    <v-snackbar v-model="message">予定の公開が完了しました！</v-snackbar>
   </v-sheet>
 </template>
