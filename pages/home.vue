@@ -24,6 +24,11 @@ const calendarOptions = ref({
   plugins: [dayGridPlugin, interactionPlugin],
   initialView: mobile.value ? 'dayGridDay' : 'dayGridMonth',
   eventClick: handleEventClick,
+  eventTimeFormat: {
+    hour: '2-digit',
+    minute: '2-digit',
+    meridiem: false,
+  },
 });
 
 onMounted(async () => {
