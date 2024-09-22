@@ -13,7 +13,7 @@ class Schedule {
     return readonly(this._data);
   }
 
-  async index(auth_id: number) {
+  async index() {
     const { data, error, status } = await useFetch(`/api/schedules`);
 
     if (status.value !== 'success') {
@@ -26,16 +26,15 @@ class Schedule {
     const calendar = [];
     if (data.value) {
       for (const schedule of JSON.parse(data.value)) {
-        if (schedule.user === auth_id) {
-          calendar.push({
-            id: schedule.id,
-            title: schedule.title,
-            date: new Date(schedule.event_date),
-          });
-        }
+        calendar.push({
+          id: schedule.id,
+          user_id: schedule.user,
+          title: schedule.title,
+          date: new Date(schedule.event_date),
+        });
       }
     }
-    // console.log('calendar : ', calendar);
+
     this._data.value = calendar;
   }
 

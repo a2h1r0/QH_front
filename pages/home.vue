@@ -10,7 +10,7 @@ const auth = useAuth();
 const router = useRouter();
 const schedule = useSchedule();
 
-const events = computed(() => schedule.data.value || []);
+const isShowAuthCalendar = ref(false);
 
 const handleEventClick = (arg) => {
   console.log(arg.event.id);
@@ -34,12 +34,30 @@ onMounted(async () => {
     router.push({ name: 'login' });
   } else {
     await schedule.index(auth.user.value.id); // ユーザーIDに基づいてスケジュールを取得
-    calendarOptions.value.events = events;
+  }
+});
+
+watchEffect(() => {
+  if (isShowAuthCalendar.value) {
+    calendarOptions.value.events = schedule.data.value.filter(
+      (event) => event.user_id === auth.user.value.id
+    );
+  } else {
+    calendarOptions.value.events = schedule.data.value.filter(
+      (event) => event.user_id !== auth.user.value.id
+    );
   }
 });
 </script>
 
 <template>
+  <v-btn
+    @click="isShowAuthCalendar = !isShowAuthCalendar"
+    :text="
+      isShowAuthCalendar ? '他人のカレンダーを見る' : '自分のカレンダーを見る'
+    "
+  ></v-btn>
+
   <v-sheet>
     <FullCalendar :options="calendarOptions" />
   </v-sheet>
