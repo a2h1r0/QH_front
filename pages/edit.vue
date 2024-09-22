@@ -49,7 +49,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="d-flex align-center justify-center fill-height">
+  <div class="home-container">
     <v-card min-width="400px" class="pt-4">
       <h1 class="text-center text-h5 font-weight-bold">スケジュール投稿</h1>
 
@@ -93,3 +93,26 @@ const submit = async () => {
     </v-card>
   </div>
 </template>
+
+<style scoped>
+/* オレンジ色の背景を追加 */
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+.v-card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 20px;
+}
+</style>
