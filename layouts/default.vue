@@ -25,7 +25,7 @@ if (route.path === '/') {
     <TheHeader v-if="!isLoginURL()" />
 
     <v-main>
-      <v-responsive max-width="1000px" min-height="100vh" class="mx-auto pa-4">
+      <v-responsive min-height="100vh" class="mx-auto">
         <slot />
       </v-responsive>
     </v-main>
