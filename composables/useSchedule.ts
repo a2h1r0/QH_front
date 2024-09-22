@@ -87,38 +87,10 @@ class Schedule {
     return response !== null;
   }
 
-  async request(
-    title: string,
-    description: string,
-    event_date: string,
-    area: string
-  ): Promise<boolean> {
-    const user_id = sessionStorage.getItem('user_id');
-
-    if (!user_id) {
-      throw showError({
-        statusCode: 401,
-        message: 'ユーザーIDが見つかりません。ログインしてください。',
-      });
-    }
-    const dateValue = new Date(event_date);
-
-    if (isNaN(dateValue.getTime())) {
-      throw showError({
-        statusCode: 400,
-        message: '無効なイベント日付です。',
-      });
-    }
-
-    const response = await $fetch(`/api/schedules`, {
-      method: 'POST',
-      body: {
-        user: parseInt(user_id),
-        title,
-        description,
-        event_date: dateValue.toISOString(),
-        area,
-      },
+  async request(id: number, user_id: number): Promise<boolean> {
+    const response = await $fetch(`/api/schedules/${id}`, {
+      method: 'PUT',
+      body: { user: user_id },
     });
     // if (status.value !== 'success') {
     //   throw showError({

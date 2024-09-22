@@ -5,33 +5,19 @@ import { useRouter } from 'vue-router';
 const auth = useAuth();
 const router = useRouter();
 const route = useRoute();
+const schedule = useSchedule();
 
 const snackbar = ref(false);
 const event = ref(null);
 
 const submit = async () => {
-  // 申し込みの送信
-  //   const validate = await scheduleForm.value.validate();
-  //   if (validate.valid) {
-  //     const dateValue = new Date(event_date.value);
-  //     if (isNaN(dateValue.getTime())) {
-  //       scheduleFailed.value = true;
-  //       return;
-  //     }
-  //     const success = await schedule.create(
-  //       title.value,
-  //       description.value,
-  //       dateValue,
-  //       area.value
-  //     );
-  //     if (success) {
-  //       router.push({ path: '/home', query: { completed: 'true' } });
-  //     } else {
-  //       scheduleFailed.value = true;
-  //     }
-  //   }
-
-  snackbar.value = true;
+  const success = await schedule.request(
+    route.params.id as unknown as number,
+    auth.user.value.id
+  );
+  if (success) {
+    snackbar.value = true;
+  }
 };
 
 onMounted(async () => {
