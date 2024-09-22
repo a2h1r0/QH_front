@@ -51,8 +51,8 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="d-flex align-center justify-center fill-height">
-    <v-card min-width="400px" class="pt-4">
+  <div class="register-container">
+    <v-card class="register-card">
       <h1 class="text-center text-h5 font-weight-bold">新規登録</h1>
 
       <v-card-text>
@@ -101,17 +101,75 @@ const submit = async () => {
           />
         </v-form>
 
-        すでにアカウントをお持ちの方は<NuxtLink :to="pages.login.path"
-          >こちら</NuxtLink
-        >
+        <p class="text-caption mt-2">
+          すでにアカウントをお持ちの方は
+          <NuxtLink :to="pages.login.path" class="font-weight-bold">こちら</NuxtLink>
+        </p>
       </v-card-text>
 
-      <p class="text-red" v-if="registerFailed">登録に失敗しました．．．</p>
+      <p class="text-error text-center" v-if="registerFailed">登録に失敗しました．．．</p>
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="submit" color="primary">登録</v-btn>
+        <v-btn @click="submit" color="primary" class="register-btn" rounded elevation="2">
+          登録
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
 </template>
+
+<style scoped>
+/* 全体のグローバルスタイル */
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 16px; /* スマホでのパディングを確保 */
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+.register-card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 20px;
+}
+
+/* スマホ対応のためのメディアクエリ */
+@media (max-width: 600px) {
+  .register-card {
+    padding: 1rem; /* スマホ用にパディングを縮小 */
+    max-width: 100%; /* 幅を100%にして画面にフィットさせる */
+    margin: 10px; /* 余白を少し縮小 */
+  }
+
+  .register-btn {
+    font-size: 1rem; /* ボタンのテキストサイズを少し小さく */
+  }
+}
+
+.register-btn {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+:deep(.v-text-field) {
+  margin-bottom: 1rem;
+}
+</style>
