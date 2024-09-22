@@ -46,6 +46,10 @@ const submit = async () => {
     }
   }
 };
+
+const goHome = () => {
+  router.push({ name: 'home' });
+};
 </script>
 
 <template>
@@ -91,6 +95,10 @@ const submit = async () => {
         <v-btn @click="submit" color="primary">投稿</v-btn>
       </v-card-actions>
     </v-card>
+
+    <!-- Homeへ戻るボタンをフォームの下に配置 -->
+    <v-btn @click="goHome" color="secondary" class="mt-4 go-home-btn">Homeへ戻る</v-btn>
+    
   </div>
 </template>
 
@@ -98,6 +106,7 @@ const submit = async () => {
 /* オレンジ色の背景を追加 */
 .home-container {
   display: flex;
+  flex-direction: column; /* カードとボタンを縦に並べる */
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 64px);
@@ -114,5 +123,17 @@ const submit = async () => {
   max-width: 400px;
   width: 100%;
   margin: 20px;
+}
+
+.go-home-btn {
+  margin-top: 20px;
+  width: 200px; /* ボタンの幅を調整 */
+}
+
+/* スマホ対応のためのメディアクエリ */
+@media (max-width: 600px) {
+  .go-home-btn {
+    width: 100%; /* スマホではボタンを100%幅に */
+  }
 }
 </style>
