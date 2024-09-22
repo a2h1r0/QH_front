@@ -25,11 +25,11 @@ export const pages: Pages = {
   index: {
     path: '/',
     head: {
-      title: 'QH_front | QH_frontやねん',
+      title: 'nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaやねん',
         },
       ],
     },
@@ -37,11 +37,11 @@ export const pages: Pages = {
   register: {
     path: '/register',
     head: {
-      title: '新規登録 | QH_frontやねん',
+      title: '新規登録 | nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaの新規登録画面やねん',
         },
       ],
     },
@@ -49,11 +49,11 @@ export const pages: Pages = {
   login: {
     path: '/login',
     head: {
-      title: 'ログイン | QH_frontやねん',
+      title: 'ログイン | nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaのログイン画面やねん',
         },
       ],
     },
@@ -61,11 +61,11 @@ export const pages: Pages = {
   home: {
     path: '/home',
     head: {
-      title: 'ホーム | QH_frontやねん',
+      title: 'nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaやねん',
         },
       ],
     },
@@ -73,11 +73,11 @@ export const pages: Pages = {
   edit: {
     path: '/edit',
     head: {
-      title: '予定投稿 | QH_frontやねん',
+      title: '予定投稿 | nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaの予定投稿画面やねん',
         },
       ],
     },
@@ -85,11 +85,11 @@ export const pages: Pages = {
   schedule: {
     path: '/schedule/[id]',
     head: {
-      title: 'スケジュール | QH_frontやねん',
+      title: 'スケジュール | nomoka',
       meta: [
         {
           name: 'description',
-          content: 'QH_frontやねん',
+          content: 'nomokaのスケジュール画面やねん',
         },
       ],
     },
