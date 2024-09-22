@@ -78,7 +78,7 @@ watchEffect(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   width: 100%;
   background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   padding: 16px; /* 必要に応じてパディングを追加 */

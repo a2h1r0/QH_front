@@ -100,7 +100,7 @@ const submit = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   width: 100%;
   padding: 16px;
   background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
