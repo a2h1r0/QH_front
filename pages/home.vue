@@ -12,7 +12,7 @@ const route = useRoute();
 const schedule = useSchedule();
 
 const isShowAuthCalendar = ref(route.query.completed);
-const message = ref(route.query.completed === 'true');
+const snackbar = ref(route.query.completed === 'true');
 
 const handleEventClick = (value) => {
   router.push(`/schedules/${value.event.id}`);
@@ -58,6 +58,6 @@ watchEffect(() => {
   <v-sheet>
     <FullCalendar :options="calendarOptions" />
 
-    <v-snackbar v-model="message">予定の公開が完了しました！</v-snackbar>
+    <v-snackbar v-model="snackbar">予定の公開が完了しました！</v-snackbar>
   </v-sheet>
 </template>
