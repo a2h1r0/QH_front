@@ -123,4 +123,8 @@ watchEffect(() => {
     max-width: 100%;
   }
 }
+
+:deep(.fc-today-button) {
+  display: none;
+}
 </style>
